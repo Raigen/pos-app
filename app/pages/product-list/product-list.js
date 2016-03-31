@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, NavParams} from 'ionic-angular';
 
 /*
   Generated class for the ProductListPage page.
@@ -11,10 +11,10 @@ import {Page, NavController} from 'ionic-angular';
 })
 export class ProductListPage {
   static get parameters() {
-    return [[NavController]];
+    return [[NavController], [NavParams]];
   }
 
-  constructor(nav) {
+  constructor(nav, navParams) {
     this.nav = nav;
   }
 }
