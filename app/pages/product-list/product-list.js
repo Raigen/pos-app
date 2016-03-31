@@ -1,11 +1,8 @@
+import {OnInit} from 'angular2/core';
 import {Page, NavController, NavParams} from 'ionic-angular';
+import {ProductService} from '../../services/product-service';
 
-/*
-  Generated class for the ProductListPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/product-list/product-list.html',
 })
@@ -14,7 +11,20 @@ export class ProductListPage {
     return [[NavController], [NavParams]];
   }
 
-  constructor(nav, navParams) {
+  constructor(nav, navParams, productService) {
     this.nav = nav;
+    this.productService = productService;
+  }
+
+  ngOnInit() {
+//  this.productService.findAll().subscribe(
+//    data => this.products = data
+//  );
+  }
+
+  itemTapped(event, product) {
+    this.nav.push(productDetailsPage, {
+      product: product
+    });
   }
 }
