@@ -8,7 +8,7 @@
 <ion-content padding class="product-list">
   <ion-list>
     <button ion-item *ngFor="#product of products" (click)="itemTapped($event, product)">
-      {{product.title}}
+      {{product.name}}
     </button>
   </ion-list>
 </ion-content>

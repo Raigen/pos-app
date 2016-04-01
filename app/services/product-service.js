@@ -7,7 +7,7 @@ import 'rxjs/Rx';
 let productURL = SERVER_URL + 'products';
 
 let headers = new Headers({
-  "Authorization": 'Token token=someWEIRDtokenSEQUENCE',
+  "Authorization": 'Bearer PUT-YOUR-TOKEN-HERE',
   "Accept": 'application/vnd.epages.v1+json' }
 );
 

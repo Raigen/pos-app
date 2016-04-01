@@ -8,23 +8,18 @@ import {ProductService} from '../../services/product-service';
 })
 export class ProductListPage {
   static get parameters() {
-    return [[NavController], [NavParams]];
+    return [[NavController], [NavParams], [ProductService]];
   }
 
   constructor(nav, navParams, productService) {
     this.nav = nav;
     this.productService = productService;
+    this.selectedItem = navParams.get('item');
   }
 
   ngOnInit() {
-//  this.productService.findAll().subscribe(
-//    data => this.products = data
-//  );
-  }
-
-  itemTapped(event, product) {
-    this.nav.push(productDetailsPage, {
-      product: product
-    });
+    this.productService.findAll().subscribe(
+      data => this.products = data.items
+    );
   }
 }

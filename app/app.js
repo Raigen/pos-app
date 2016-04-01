@@ -4,11 +4,13 @@ import {StatusBar} from 'ionic-native';
 import {GettingStartedPage} from './pages/getting-started/getting-started';
 import {ListPage} from './pages/list/list';
 import {ProductListPage} from './pages/product-list/product-list';
+import {ProductService} from './services/product-service';
 
 
 @App({
   templateUrl: 'build/app.html',
-  config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  providers: [ProductService]
 })
 class MyApp {
   static get parameters() {

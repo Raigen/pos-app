@@ -1,1 +1,1 @@
-export let SERVER_URL = "http://localhost:3000/api/";
+export let SERVER_URL = "http://pm.epages.com/rs/shops/apidocu/";
