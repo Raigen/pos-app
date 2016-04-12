@@ -7,8 +7,11 @@
 
 <ion-content padding class="product-list">
   <ion-list>
-    <button ion-item *ngFor="#product of products" (click)="itemTapped($event, product)">
-      {{product.name}}
-    </button>
+    <ion-item clear item-right *ngFor="#product of products" (click)="itemTapped($event, product)">
+      <ion-thumbnail item-left>
+          <img src="{{product.images[3].url}}">
+      </ion-thumbnail>
+      <h2>{{product.name}}</h2>
+    </ion-item>
   </ion-list>
 </ion-content>
