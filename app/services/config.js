@@ -1,1 +1,1 @@
-export let SERVER_URL = "http://pm.epages.com/rs/shops/apidocu/";
+export let SERVER_URL = "http://unity-epages6.epages.com/rs/shops/Spotlight/";

@@ -24,6 +24,18 @@ export class ProductService {
         this.http = http;
     }
 
+    list({page = 0, resultsPerPage = 10}) {
+    return this.http.get(`${productURL}?page=${page}&resultsPerPage=${resultsPerPage}`, options)
+        .map(res => res.json())
+        .catch(this.handleError);
+    }
+
+    findOne({productId}) {
+        return this.http.get(`${productURL}/${productId}`)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
     findAll() {
         return this.http.get(productURL, options)
             .map(res => res.json())

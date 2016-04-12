@@ -1,0 +1,13 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>{{product.name}}</ion-title>
+</ion-navbar>
+
+<ion-content padding class="product-list">
+  <h1>{{product.name}}</h1>
+  <h3>{{product.price}}</h3>
+  <img src="" id="productImage" />
+  <button (click)="addPicture()">add Image</button>
+</ion-content>
