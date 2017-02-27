@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { LoginProvider } from './login-provider';
 import { options } from './config';
+import { Transfer, FileUploadOptions } from 'ionic-native';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -65,6 +66,28 @@ export class ProductProvider {
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);
+  }
+
+  uploadImage({productId, image, onProgress = null} : {productId: any, image: string, onProgress: any}): Promise<any> {
+    const {token} = this.config;
+    const url = `${this.productUrl}/${productId}/slideshow`;
+    const opt = options({token});
+    return new Promise((resolve, reject) => {
+      this.platform.ready().then(() => {
+        const opts = {
+          fileKey: 'image',
+          fileName: image.substr(image.lastIndexOf('/') + 1),
+          httpMethod: 'POST',
+          mimeType: 'image/jpeg',
+          headers: {Authorization: opt.headers.get('Authorization')}
+        };
+        const ft = new Transfer();
+        // if (onProgress) ft.onprogress = onProgress;
+        ft.upload(image, url, opts)
+          .then(result => resolve(result))
+          .catch(error => reject(error));
+      });
+    });
   }
 
 

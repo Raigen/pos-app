@@ -24,5 +24,8 @@
         <ion-badge active *ngIf="image.active">active</ion-badge>
       </ion-slide>
     </ion-slides>
+    <div class="product-detail-button-wrapper">
+      <button class="product-detail-button" (click)="addPicture()" *ngIf="uploadProgress === 0">Make a picture</button>
+    </div>
   </div>
 </ion-content>

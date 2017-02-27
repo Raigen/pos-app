@@ -1,5 +1,6 @@
+import {Camera} from 'ionic-native';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
 import { Product } from '../../app/Product';
 
@@ -16,9 +17,15 @@ import { Product } from '../../app/Product';
 export class ProductDetailPage {
 
   product: Product;
+  uploadProgress = 0;
   images = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private productProvider: ProductProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    private productProvider: ProductProvider,
+  ) {
     this.product = {productId: navParams.data.productId} as Product;
   }
 
@@ -44,6 +51,38 @@ export class ProductDetailPage {
         url: image.sizes[3].url,
         active: image.name === this.product.productImage
       }));
+    });
+  }
+
+  progressImage(progressEvent) {
+    if (progressEvent.lengthComputable) {
+      this.uploadProgress = progressEvent.loaded / progressEvent.total * 100;
+    } else {
+      this.uploadProgress = this.uploadProgress + 1;
+    }
+  }
+
+  addPicture() {
+    const loading = this.loadingCtrl.create({
+      content: 'Image uploading'
+    });
+    Camera.getPicture({
+      destinationType: 1
+    }).then(imageData => {
+        loading.present();
+        // imageData is the `file://` source of the image
+        this.productProvider.uploadImage({productId: this.product.productId, image: imageData, onProgress: (event) => this.progressImage(event)})
+          .then(result => {
+            const data = JSON.parse(result.response);
+
+            this.images.push({url: data.sizes[0].url, active: false});
+            this.uploadProgress = 0;
+            loading.dismiss();
+          }).catch(error => {
+            console.log(error);
+            this.uploadProgress = 0;
+            loading.dismiss();
+          });
     });
   }
 

@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, LoadingController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -39,6 +39,7 @@ import { ProductProvider } from '../providers/productProvider';
     Storage,
     LoginProvider,
     ProductProvider,
+    LoadingController,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
