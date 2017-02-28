@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ProductListPage } from '../pages/product-list/product-list';
 import { ProductDetailPage } from '../pages/product-detail/product-detail';
 import { SettingsPage } from '../pages/settings/settings';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 import { LoginProvider } from '../providers/login-provider';
 import { ProductProvider } from '../providers/productProvider';
@@ -21,6 +22,7 @@ import { ProductProvider } from '../providers/productProvider';
     ContactPage,
     HomePage,
     TabsPage,
+    TutorialPage,
     SettingsPage,
     ProductListPage,
     ProductDetailPage
@@ -35,6 +37,7 @@ import { ProductProvider } from '../providers/productProvider';
     ContactPage,
     HomePage,
     TabsPage,
+    TutorialPage,
     SettingsPage,
     ProductListPage,
     ProductDetailPage

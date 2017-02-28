@@ -4,13 +4,14 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { ProductListPage } from '../pages/product-list/product-list';
 import { SettingsPage } from '../pages/settings/settings';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   // rootPage = TabsPage;
-  rootPage = ProductListPage;
+  private rootPage: Component = ProductListPage;
   @ViewChild(Nav) nav: Nav;
 
   pages = [
@@ -22,8 +23,23 @@ export class MyApp {
      { title: 'Settings', component: SettingsPage, icon: 'options' }
    ]
 
-  constructor(platform: Platform) {
-    platform.ready().then(() => {
+  constructor(private platform: Platform) {
+    const tutorialDone = localStorage.getItem('tutorialDone');
+    const token = localStorage.getItem('config.token');
+
+    this.initializeApp();
+
+    if (tutorialDone && token) {
+      this.rootPage = ProductListPage;
+    } else if (tutorialDone) {
+      this.rootPage = SettingsPage;
+    } else {
+      this.rootPage = TutorialPage;
+    }
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.backgroundColorByHexString('#DB3A4B');
