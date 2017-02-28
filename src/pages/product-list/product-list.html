@@ -1,10 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Product List</ion-title>
     <ion-buttons end>
+      <button ion-button icon-only (click)="scanEAN()">
+        <ion-icon name="barcode"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>

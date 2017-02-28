@@ -1,4 +1,4 @@
-import {Camera} from 'ionic-native';
+import { BarcodeScanner, Camera, Toast } from 'ionic-native';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, LoadingController, List } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
@@ -83,6 +83,20 @@ export class ProductListPage {
             loading.dismiss();
           });
     });
+  }
+
+  scanEAN() {
+    BarcodeScanner.scan().then(barcodeData => {
+      return this.productProvider.list({q: barcodeData.text}).then(data => {
+        if (data.results === 1) {
+          this.navCtrl.push(ProductDetailPage, {productId: data.items[0].productId});
+        } else if (data.results > 1) {
+          this.products = data.items as Product[];
+        } else {
+          Toast.show('No product found', '5000', 'bottom').subscribe(toast => console.log(toast));
+        }
+      });
+    }).catch(err => console.log(err));
   }
 
   ionViewDidLoad() {
