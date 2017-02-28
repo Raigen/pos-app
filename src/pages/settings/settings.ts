@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login-provider';
 import { ProductListPage } from '../product-list/product-list';
-// import { TOKEN, SERVER_URL } from '../../providers/config';
+import { SERVER_URL } from '../../providers/config';
 
 /*
   Generated class for the Settings page.
@@ -22,7 +22,7 @@ export class SettingsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginProvider: LoginProvider, private formBuilder: FormBuilder) {
     this.settingsForm = this.formBuilder.group({
       token: [loginProvider.token],
-      shopUrl: [loginProvider.serverUrl]
+      shopUrl: [loginProvider.serverUrl || SERVER_URL]
     })
   }
 

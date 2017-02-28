@@ -16,16 +16,16 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ProductProvider {
 
-  private config: any;
+  private config: LoginProvider;
   private productUrl: String;
 
   constructor(private http: Http, private loginProvider: LoginProvider, public platform: Platform) {
     this.config = loginProvider;
-    this.productUrl = `${this.config.serverUrl}/products`;
+    this.productUrl = `${this.loginProvider.serverUrl}/products`;
   }
 
   list({page = 1, resultsPerPage = 10, q = ''}): Promise<any> {
-    const {token} = this.config;
+    const token = this.loginProvider.token;
     const productURL = this.productUrl;
     return this.http.get(`${productURL}?page=${page}&resultsPerPage=${resultsPerPage}&q=${q}`, options({token}))
       .toPromise()

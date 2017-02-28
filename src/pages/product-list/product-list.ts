@@ -36,7 +36,8 @@ export class ProductListPage {
       .then(data => {
         this.products = data.items as Product[];
         this.productCount = data.results;
-      });
+      })
+      .catch(this.handleErrors);
   }
 
   itemTapped(event, {productId}) {
@@ -50,7 +51,8 @@ export class ProductListPage {
       data.items.map(item => this.products.push(item as Product));
       
       infiniteScroll.complete();
-    });
+    })
+    .catch(this.handleErrors);
     if (this.currentPage === Math.ceil(this.productCount / 10)) {
         infiniteScroll.enable(false);
     }
@@ -59,7 +61,9 @@ export class ProductListPage {
   search(event) {
     const searchbar = event.target;
     const q = searchbar.value;
-    this.productProvider.list({q}).then(data => this.products = data.items as Product[]);    
+    this.productProvider.list({q})
+      .then(data => this.products = data.items as Product[])
+      .catch(this.handleErrors);
   }
 
   addPicture(event, {productId}) {
@@ -95,12 +99,17 @@ export class ProductListPage {
         } else {
           Toast.show('No product found', '5000', 'bottom').subscribe(toast => console.log(toast));
         }
-      });
-    }).catch(err => console.log(err));
+      }).catch(this.handleErrors);
+    }).catch(error => console.log(error));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductListPage');
+  }
+
+  handleErrors(error) {
+    console.log(error);
+    this.products = [];
   }
 
 }

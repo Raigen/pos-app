@@ -14,11 +14,9 @@ export class LoginProvider {
 
   public token: String;
   public serverUrl: String;
-  private storage: Storage;
 
-  constructor(storage: Storage) {
+  constructor(private storage: Storage) {
     console.log('Hello LoginProvider Provider');
-    this.storage = storage;
     // this.token = TOKEN;
     // this.serverUrl = SERVER_URL;
     this.token = localStorage.getItem('config.token');
@@ -28,7 +26,7 @@ export class LoginProvider {
   /**
    * load the credentials from the persistent storage into the localStorage
    */
-  loadCredentials() {
+  loadCredentials(): Promise<any> {
     return Bluebird.all([
       this.storage.get('config.token'),
       this.storage.get('config.serverUrl')
@@ -43,7 +41,7 @@ export class LoginProvider {
     });
   }
 
-  setCredentials({shopUrl, token}) {
+  setCredentials({shopUrl, token}: {shopUrl: string, token: string}): Promise<any> {
     return Bluebird.all([
       this.storage.set('config.serverUrl', shopUrl),
       this.storage.set('config.token', token)
