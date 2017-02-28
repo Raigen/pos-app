@@ -19,35 +19,37 @@ page-product-detail {
     margin-top: 30px;
   }
 
-  &-stock {
-    background-color: #ededed;
-    padding: 1.5em 1em 1em;
+  .product-detail {
+    &-stock {
+      background-color: #ededed;
+      padding: 1.5em 1em 1em;
 
-    .stock-level {
-      margin: 0 auto;
-      padding: 0.5em;
-      font-size: 2em;
-      font-weight: 300;
-      text-align: center;
+      .stock-level {
+        margin: 0 auto;
+        padding: 0.5em;
+        font-size: 2em;
+        font-weight: 300;
+        text-align: center;
+      }
+
+      .update-button {
+        text-align: center;
+      }
     }
 
-    .update-button {
+    &-button-wrapper {
       text-align: center;
     }
-  }
+    &-button,
+    button {
+      border-radius: 0;
+      padding: 0 1.3em;
+      height: 2.4em;
+    }
 
-  &-button-wrapper {
-    text-align: center;
-  }
-  &-button,
-  button {
-    border-radius: 0;
-    padding: 0 1.3em;
-    height: 2.4em;
-  }
+    .badge-active {
+      position: absolute;
+    }
 
-  .badge-active {
-    position: absolute;
   }
-
 }

@@ -14,22 +14,24 @@ page-product-list {
     padding: 5px;
   }
 
-  &-button {
-    &.camera {
-      background-color: #2bb0a5;
-    }
-    &.stock {
-      background-color: #289489;
-    }
+  .product-list {
+    &-button {
+      &.camera {
+        background-color: #2bb0a5;
+      }
+      &.stock {
+        background-color: #289489;
+      }
 
-    .button-icon-only .ion-icon {
-      padding: 0 .9em;
-    }
+      .button-icon-only .ion-icon {
+        padding: 0 .9em;
+      }
 
-    .button-inner {
-      padding-left: 5px;
-      padding-right: 5px;
-      font-size: 2rem;
+      .button-inner {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 2rem;
+      }
     }
   }
 }
