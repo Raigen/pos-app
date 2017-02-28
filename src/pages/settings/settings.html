@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Settings</ion-title>
+    <ion-buttons end>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="settings">
+  <form [formGroup]="settingsForm" (ngSubmit)="setSettings($event)" novalidate>
+    <ion-item>
+      <ion-label floating primary>Shop URL</ion-label>
+      <ion-input formControlName="shopUrl" type="url" required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating primary>Token</ion-label>
+      <ion-input formControlName="token" type="text" required>
+      </ion-input>
+    </ion-item>
+
+    <ion-row responsive-sm>
+      <ion-col>
+        <button type="submit" primary block ion-button>Save</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

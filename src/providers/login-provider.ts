@@ -1,7 +1,7 @@
 import Bluebird from 'bluebird';
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
-import { TOKEN, SERVER_URL } from './config';
+// import { TOKEN, SERVER_URL } from './config';
 
 /*
   Generated class for the LoginProvider provider.
@@ -19,10 +19,10 @@ export class LoginProvider {
   constructor(storage: Storage) {
     console.log('Hello LoginProvider Provider');
     this.storage = storage;
-    this.token = TOKEN;
-    this.serverUrl = SERVER_URL;
-    // this.token = localStorage.getItem('config.token');
-    // this.serverUrl = localStorage.getItem('config.serverUrl');
+    // this.token = TOKEN;
+    // this.serverUrl = SERVER_URL;
+    this.token = localStorage.getItem('config.token');
+    this.serverUrl = localStorage.getItem('config.serverUrl');
   }
 
   /**

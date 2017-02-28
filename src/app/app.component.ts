@@ -3,6 +3,7 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { ProductListPage } from '../pages/product-list/product-list';
+import { SettingsPage } from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +15,12 @@ export class MyApp {
 
   pages = [
     { title: 'Product List', component: ProductListPage, icon: 'cube' }
-  ];
+    // { title: 'About', component: AboutPage }
+   ]
+
+   loggedOutPages = [
+     { title: 'Settings', component: SettingsPage, icon: 'options' }
+   ]
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
