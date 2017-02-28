@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Camera} from 'ionic-native';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, LoadingController, List } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
 import { ProductDetailPage } from '../product-detail/product-detail';
 import { Product } from '../../app/Product';
@@ -16,12 +17,19 @@ import { Product } from '../../app/Product';
 })
 export class ProductListPage {
 
+  @ViewChild(List) list: List;
+
   searchQuery = '';
   private currentPage = 1;
   private productCount = 0;
   products: Product[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private productProvider: ProductProvider) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    private productProvider: ProductProvider
+   ) {}
 
   ngOnInit() {
     this.productProvider.list({page: 1})
@@ -52,6 +60,29 @@ export class ProductListPage {
     const searchbar = event.target;
     const q = searchbar.value;
     this.productProvider.list({q}).then(data => this.products = data.items as Product[]);    
+  }
+
+  addPicture(event, {productId}) {
+    event.stopPropagation();
+    this.list.closeSlidingItems();
+    const loading = this.loadingCtrl.create({
+      content: 'Image uploading'
+    });
+    Camera.getPicture({
+      destinationType: 1
+    }).then(imageData => {
+      loading.present();
+      // imageData is the `file://` source of the image
+      this.productProvider.uploadImage({productId: productId, image: imageData})
+          .then(data => {
+            loading.dismiss();
+            this.navCtrl.push(ProductDetailPage, {productId});
+          })
+          .catch(err => {
+            console.log(err);
+            loading.dismiss();
+          });
+    });
   }
 
   ionViewDidLoad() {

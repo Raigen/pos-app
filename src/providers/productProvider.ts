@@ -68,7 +68,7 @@ export class ProductProvider {
       .catch(this.handleError);
   }
 
-  uploadImage({productId, image, onProgress = null} : {productId: any, image: string, onProgress: any}): Promise<any> {
+  uploadImage({productId, image, onProgress = null} : {productId: any, image: string, onProgress?: any}): Promise<any> {
     const {token} = this.config;
     const url = `${this.productUrl}/${productId}/slideshow`;
     const opt = options({token});
