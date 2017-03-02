@@ -1,4 +1,4 @@
-import {Camera} from 'ionic-native';
+import { Camera, Toast } from 'ionic-native';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
@@ -82,6 +82,7 @@ export class ProductDetailPage {
             console.log(error);
             this.uploadProgress = 0;
             loading.dismiss();
+            Toast.show('upload failed', '5000', 'bottom').subscribe(toast => console.log(toast));
           });
     });
   }
