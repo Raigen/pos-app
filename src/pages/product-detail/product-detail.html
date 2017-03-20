@@ -21,6 +21,7 @@
     <ion-slides class="slides-wrapper" pager *ngIf="images.length > 0">
       <ion-slide *ngFor="let image of images">
         <img src="{{image.url}}" />
+        <button ion-button (click)="removeImage(image)">delete</button>
         <ion-badge active *ngIf="image.active">active</ion-badge>
       </ion-slide>
     </ion-slides>

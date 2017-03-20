@@ -1,6 +1,6 @@
 import { Camera, Toast } from 'ionic-native';
-import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, LoadingController, Slides } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
 import { Product } from '../../app/Product';
 
@@ -16,6 +16,7 @@ import { Product } from '../../app/Product';
 })
 export class ProductDetailPage {
 
+  @ViewChild(Slides) slider: Slides;
   product: Product;
   uploadProgress = 0;
   images = [];
@@ -48,6 +49,7 @@ export class ProductDetailPage {
       this.images.length = 0;
       // push all slideshow images to the list
       slideshowImages.map(image => this.images.push({
+        name: image.name,
         url: image.sizes[3].url,
         active: image.name === this.product.productImage
       }));
@@ -73,9 +75,13 @@ export class ProductDetailPage {
         // imageData is the `file://` source of the image
         this.productProvider.uploadImage({productId: this.product.productId, image: imageData, onProgress: (event) => this.progressImage(event)})
           .then(result => {
-            const data = JSON.parse(result.response);
+            const image = JSON.parse(result.response);
 
-            this.images.push({url: data.sizes[0].url, active: false});
+            this.images.push({
+              name: image.name,
+              url: image.sizes[0].url,
+              active: false
+            });
             this.uploadProgress = 0;
             loading.dismiss();
           }).catch(error => {
@@ -85,6 +91,18 @@ export class ProductDetailPage {
             Toast.show('upload failed', '5000', 'bottom').subscribe(toast => console.log(toast));
           });
     });
+  }
+
+  removeImage(image) {
+    this.productProvider.deleteImage({productId: this.product.productId, image})
+      .then(result => {
+        this.slider.slideTo(0, 10);
+        this.images.splice(this.images.indexOf(image), 1);
+      })
+      .catch(error => {
+        console.log(error);
+        Toast.show('deleting image failed', '5000', 'bottom').subscribe(toast => console.log(toast));
+      });
   }
 
   ionViewDidLoad() {

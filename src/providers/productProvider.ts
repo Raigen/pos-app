@@ -90,6 +90,15 @@ export class ProductProvider {
     });
   }
 
+  deleteImage({productId, image}: {productId: String, image: any}): Promise<any> {
+    const {token} = this.config;
+    const url = `${this.productUrl}/${productId}/slideshow/${image.name}`;
+    const opt = options({token});
+    return this.http.delete(url, opt)
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
+  }
 
   handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
