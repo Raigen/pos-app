@@ -22,6 +22,10 @@
       <ion-input formControlName="token" type="text" required>
       </ion-input>
     </ion-item>
+    <button type="button" ion-button icon-left (click)="readTokenFromQrCode($event)">
+      <ion-icon name="qr-scanner"></ion-icon>
+      Scan code
+    </button>
 
     <ion-row responsive-sm>
       <ion-col>

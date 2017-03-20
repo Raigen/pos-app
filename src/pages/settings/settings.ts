@@ -1,3 +1,4 @@
+import { BarcodeScanner } from 'ionic-native';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
@@ -18,6 +19,7 @@ import { SERVER_URL } from '../../providers/config';
 export class SettingsPage {
 
   private settingsForm: FormGroup;
+  private isScanning: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginProvider: LoginProvider, private formBuilder: FormBuilder) {
     this.settingsForm = this.formBuilder.group({
@@ -26,12 +28,28 @@ export class SettingsPage {
     })
   }
 
+  readTokenFromQrCode() {
+    this.isScanning = true;
+    BarcodeScanner.scan().then(barcodeData => {
+      if (!barcodeData.cancelled) {
+        this.settingsForm.patchValue({token: barcodeData.text})
+      }
+      this.isScanning = false;
+    }, (error) => {
+      this.isScanning = false;
+    });
+  }
+
   setSettings() {
     const token = this.settingsForm.value.token;
     const shopUrl = this.settingsForm.value.shopUrl;
     this.loginProvider.setCredentials({token, shopUrl}).then(() => {
       this.navCtrl.setRoot(ProductListPage);
     });
+  }
+
+  ionViewCanLeave(): boolean {
+    return !this.isScanning;
   }
 
   ionViewDidLoad() {
