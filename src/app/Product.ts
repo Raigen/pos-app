@@ -1,9 +1,9 @@
 export class Product {
-  productId: String;
-  name: String;
-  visible: Boolean;
+  productId: string;
+  name: string;
+  visible: boolean;
   productImage: any;
   images: Array<any>;
   priceInfo: any;
-  stocklevel: Number;
+  stocklevel: number;
 }

@@ -12,8 +12,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LoginProvider {
 
-  public token: String;
-  public serverUrl: String;
+  public token: string;
+  public serverUrl: string;
 
   constructor(private storage: Storage) {
     console.log('Hello LoginProvider Provider');

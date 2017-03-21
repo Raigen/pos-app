@@ -1,4 +1,4 @@
-import { BarcodeScanner, Camera, Toast } from 'ionic-native';
+import { BarcodeScanner, Camera, Toast, FileTransferError, FileUploadResult } from 'ionic-native';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, LoadingController, List } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
@@ -41,12 +41,12 @@ export class ProductListPage {
       .catch(this.handleErrors);
   }
 
-  itemTapped(event, {productId}) {
+  itemTapped(event, {productId}: {productId: string}): void {
     // this.list.closeSlidingItems();
     this.navCtrl.push(ProductDetailPage, {productId});
   }
 
-  doInfinite(infiniteScroll) {
+  doInfinite(infiniteScroll): void {
     const page = this.currentPage = this.currentPage + 1;
     this.productProvider.list({page}).then(data => {
       data.items.map(item => this.products.push(item as Product));
@@ -59,7 +59,7 @@ export class ProductListPage {
     }
   }
 
-  search(event) {
+  search(event): void {
     const searchbar = event.target;
     const q = searchbar.value;
     this.productProvider.list({q})
@@ -67,7 +67,7 @@ export class ProductListPage {
       .catch(this.handleErrors);
   }
 
-  addPicture(event, {productId}) {
+  addPicture(event, {productId}: {productId: string}): void {
     event.stopPropagation();
     this.list.closeSlidingItems();
     const loading = this.loadingCtrl.create({
@@ -79,18 +79,18 @@ export class ProductListPage {
       loading.present();
       // imageData is the `file://` source of the image
       this.productProvider.uploadImage({productId: productId, image: imageData})
-          .then(data => {
+          .then((data: FileUploadResult) => {
             loading.dismiss();
             this.navCtrl.push(ProductDetailPage, {productId});
           })
-          .catch(err => {
-            console.log(err);
+          .catch((error: FileTransferError) => {
+            console.log(error);
             loading.dismiss();
           });
     });
   }
 
-  scanEAN() {
+  scanEAN(): void {
     BarcodeScanner.scan().then(barcodeData => {
       return this.productProvider.list({q: barcodeData.text}).then(data => {
         if (data.results === 1) {

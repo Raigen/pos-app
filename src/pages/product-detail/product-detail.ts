@@ -1,4 +1,4 @@
-import { Camera, Toast } from 'ionic-native';
+import { Camera, Toast, FileUploadResult, FileTransferError } from 'ionic-native';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, LoadingController, Slides } from 'ionic-angular';
 import { ProductProvider } from '../../providers/productProvider';
@@ -36,7 +36,7 @@ export class ProductDetailPage {
       .then(() => this.fetchSlideshow());
   }
 
-  updateStocklevel(event, changeStocklevel) {
+  updateStocklevel(event, changeStocklevel): void {
     this.productProvider.changeStocklevel({productId: this.product.productId, changeStocklevel})
       .then(data => this.product.stocklevel = data.stocklevel);
   }
@@ -56,15 +56,15 @@ export class ProductDetailPage {
     });
   }
 
-  progressImage(progressEvent) {
-    if (progressEvent.lengthComputable) {
-      this.uploadProgress = progressEvent.loaded / progressEvent.total * 100;
+  progressImage(event: ProgressEvent): void {
+    if (event.lengthComputable) {
+      this.uploadProgress = event.loaded / event.total * 100;
     } else {
       this.uploadProgress = this.uploadProgress + 1;
     }
   }
 
-  addPicture() {
+  addPicture(): void {
     const loading = this.loadingCtrl.create({
       content: 'Image uploading'
     });
@@ -73,8 +73,9 @@ export class ProductDetailPage {
     }).then(imageData => {
         loading.present();
         // imageData is the `file://` source of the image
-        this.productProvider.uploadImage({productId: this.product.productId, image: imageData, onProgress: (event) => this.progressImage(event)})
-          .then(result => {
+        this.productProvider
+          .uploadImage({productId: this.product.productId, image: imageData, onProgress: (event) => this.progressImage(event)})
+          .then((result: FileUploadResult) => {
             const image = JSON.parse(result.response);
 
             this.images.push({
@@ -84,7 +85,7 @@ export class ProductDetailPage {
             });
             this.uploadProgress = 0;
             loading.dismiss();
-          }).catch(error => {
+          }).catch((error: FileTransferError) => {
             console.log(error);
             this.uploadProgress = 0;
             loading.dismiss();

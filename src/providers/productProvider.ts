@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { Http } from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
 import { LoginProvider } from './login-provider';
 import { options } from './config';
 import { Transfer, FileUploadOptions } from 'ionic-native';
@@ -17,14 +17,14 @@ import 'rxjs/add/operator/toPromise';
 export class ProductProvider {
 
   private config: LoginProvider;
-  private productUrl: String;
+  private productUrl: string;
 
   constructor(private http: Http, private loginProvider: LoginProvider, public platform: Platform) {
     this.config = loginProvider;
     this.productUrl = `${this.loginProvider.serverUrl}/products`;
   }
 
-  list({page = 1, resultsPerPage = 10, q = ''}): Promise<any> {
+  list({page = 1, resultsPerPage = 10, q = ''}: {page?: number, resultsPerPage?: number, q?: string}): Promise<any> {
     const token = this.loginProvider.token;
     const productURL = this.productUrl;
     return this.http.get(`${productURL}?page=${page}&resultsPerPage=${resultsPerPage}&q=${q}`, options({token}))
@@ -33,7 +33,7 @@ export class ProductProvider {
       .catch(this.handleError);
   }
 
-  findOne({productId}): Promise<any> {
+  findOne({productId}: {productId: string}): Promise<any> {
     const {token} = this.config;
     const productURL = this.productUrl;
     return this.http.get(`${productURL}/${productId}`, options({token}))
@@ -42,7 +42,7 @@ export class ProductProvider {
       .catch(this.handleError);
   }
 
-  getSlideshow({productId}): Promise<any> {
+  getSlideshow({productId}: {productId: string}): Promise<any> {
     const {token} = this.config;
     const url = `${this.productUrl}/${productId}/slideshow`;
     return this.http.get(url, options({token}))
@@ -51,10 +51,10 @@ export class ProductProvider {
       .catch(this.handleError);
   }
 
-  changeStocklevel({productId, changeStocklevel = -1}): Promise<any> {
+  changeStocklevel({productId, changeStocklevel = -1}: {productId: string, changeStocklevel?: number}): Promise<any> {
     const {token} = this.config;
     const url = `${this.productUrl}/${productId}`;
-    // const body = JSON.stringify({changeStocklevel});
+
     const body = [{
       op: 'add',
       path: '/stocklevel',
@@ -68,13 +68,13 @@ export class ProductProvider {
       .catch(this.handleError);
   }
 
-  uploadImage({productId, image, onProgress = null} : {productId: any, image: string, onProgress?: any}): Promise<any> {
+  uploadImage({productId, image, onProgress = null}: {productId: string, image: string, onProgress?: any}): Promise<any> {
     const {token} = this.config;
     const url = `${this.productUrl}/${productId}/slideshow`;
     const opt = options({token});
     return new Promise((resolve, reject) => {
       this.platform.ready().then(() => {
-        const opts = {
+        const opts: FileUploadOptions = {
           fileKey: 'image',
           fileName: image.substr(image.lastIndexOf('/') + 1),
           httpMethod: 'POST',
@@ -82,7 +82,7 @@ export class ProductProvider {
           headers: {Authorization: opt.headers.get('Authorization')}
         };
         const ft = new Transfer();
-        // if (onProgress) ft.onprogress = onProgress;
+        if (onProgress) ft.onProgress = onProgress;
         ft.upload(image, url, opts)
           .then(result => resolve(result))
           .catch(error => reject(error));
@@ -90,7 +90,7 @@ export class ProductProvider {
     });
   }
 
-  deleteImage({productId, image}: {productId: String, image: any}): Promise<any> {
+  deleteImage({productId, image}: {productId: string, image: any}): Promise<any> {
     const {token} = this.config;
     const url = `${this.productUrl}/${productId}/slideshow/${image.name}`;
     const opt = options({token});
