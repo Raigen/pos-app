@@ -15,7 +15,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages = [
-    { title: 'Product List', component: ProductListPage, icon: 'cube' }
+    { title: 'Product List', component: ProductListPage, icon: 'cube' },
+    { title: 'About', component: TutorialPage, icon: 'information-circle' }
     // { title: 'About', component: AboutPage }
    ]
 
