@@ -10,14 +10,12 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  // rootPage = TabsPage;
   private rootPage: Component = ProductListPage;
   @ViewChild(Nav) nav: Nav;
 
   pages = [
     { title: 'Product List', component: ProductListPage, icon: 'cube' },
     { title: 'About', component: TutorialPage, icon: 'information-circle' }
-    // { title: 'About', component: AboutPage }
    ]
 
    loggedOutPages = [
