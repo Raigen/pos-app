@@ -32,6 +32,7 @@ export class ProductListPage {
    ) {}
 
   ngOnInit() {
+    this.handleErrors = this.handleErrors.bind(this);
     this.productProvider.list({page: 1})
       .then(data => {
         this.products = data.items as Product[];
@@ -49,7 +50,7 @@ export class ProductListPage {
     const page = this.currentPage = this.currentPage + 1;
     this.productProvider.list({page}).then(data => {
       data.items.map(item => this.products.push(item as Product));
-      
+
       infiniteScroll.complete();
     })
     .catch(this.handleErrors);
@@ -109,7 +110,7 @@ export class ProductListPage {
 
   handleErrors(error) {
     console.log(error);
-    this.products = [];
+    this.products = [] as Product[];
   }
 
 }
