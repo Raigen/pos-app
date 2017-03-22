@@ -20,6 +20,7 @@ export class ProductDetailPage {
   product: Product;
   uploadProgress = 0;
   images = [];
+  details: string = "images";
 
   constructor(
     public navCtrl: NavController,
@@ -28,6 +29,7 @@ export class ProductDetailPage {
     private productProvider: ProductProvider,
   ) {
     this.product = {productId: navParams.data.productId} as Product;
+    this.details = "images";
   }
 
   ngOnInit() {

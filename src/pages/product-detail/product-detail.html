@@ -7,26 +7,41 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="product-detail">
-  <h1>{{product.name}}</h1>
-  <h3>{{product.priceInfo?.price?.formatted}}</h3>
-  <div class="product-detail-stock">
-    <h4>Stock level</h4>
-    <div class="stock-level"> {{product.stocklevel}}</div>
-    <div class="update-button">
-      <button id="down" (click)="updateStocklevel($event, -1)">-1</button>
-      <button id="up" (click)="updateStocklevel($event, +1)">+1</button>
+<ion-content class="product-detail">
+<!--  <h1>{{product.name}}</h1>
+  <h3>{{product.priceInfo?.price?.formatted}}</h3>-->
+      <ion-segment [(ngModel)]="details">
+        <ion-segment-button value="images">
+          Images
+        </ion-segment-button>
+        <ion-segment-button value="stock">
+          Stock level
+        </ion-segment-button>
+      </ion-segment>
+    <div [ngSwitch]="details">
+
+      <ion-list *ngSwitchCase="'images'" padding>
+
+        <ion-slides class="slides-wrapper" pager *ngIf="images.length > 0">
+          <ion-slide *ngFor="let image of images">
+            <ion-badge color="active" active *ngIf="image.active">active</ion-badge>
+            <img src="{{image.url}}" />
+            <button ion-button icon-only round color="secondary" (click)="removeImage(image)" class="delete-button"><ion-icon name="trash"></ion-icon></button>
+          </ion-slide>
+        </ion-slides>
+        <div padding text-center class="product-detail-button-wrapper">
+          <button ion-button icon-left class="product-detail-button" (click)="addPicture()" *ngIf="uploadProgress === 0"><ion-icon name="camera"></ion-icon>Make a picture</button>
+        </div>
+
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'stock'" padding>
+        <div class="stock-level"> {{product.stocklevel}}</div>
+        <div padding text-center class="update-button">
+          <button ion-button medium id="down" (click)="updateStocklevel($event, -1)">-1</button>
+          <button ion-button medium id="up" (click)="updateStocklevel($event, +1)">+1</button>
+        </div>
+
+      </ion-list>
     </div>
-    <h4>Product images</h4>
-    <ion-slides class="slides-wrapper" pager *ngIf="images.length > 0">
-      <ion-slide *ngFor="let image of images">
-        <img src="{{image.url}}" />
-        <button ion-button (click)="removeImage(image)">delete</button>
-        <ion-badge active *ngIf="image.active">active</ion-badge>
-      </ion-slide>
-    </ion-slides>
-    <div class="product-detail-button-wrapper">
-      <button class="product-detail-button" (click)="addPicture()" *ngIf="uploadProgress === 0">Make a picture</button>
-    </div>
-  </div>
 </ion-content>
