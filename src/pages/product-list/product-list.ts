@@ -41,9 +41,9 @@ export class ProductListPage {
       .catch(this.handleErrors);
   }
 
-  itemTapped(event, {productId}: {productId: string}): void {
-    // this.list.closeSlidingItems();
-    this.navCtrl.push(ProductDetailPage, {productId});
+  itemTapped(event, {productId}: {productId: string}, details): void {
+    this.list.closeSlidingItems();
+    this.navCtrl.push(ProductDetailPage, {productId, details});
   }
 
   doInfinite(infiniteScroll): void {

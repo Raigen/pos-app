@@ -29,7 +29,7 @@ export class ProductDetailPage {
     private productProvider: ProductProvider,
   ) {
     this.product = {productId: navParams.data.productId} as Product;
-    this.details = "images";
+    this.details = navParams.data.details || "images";
   }
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class ProductDetailPage {
       // push all slideshow images to the list
       slideshowImages.map(image => this.images.push({
         name: image.name,
-        url: image.sizes[3].url,
+        url: image.sizes[4].url,
         active: image.name === this.product.productImage
       }));
     });
