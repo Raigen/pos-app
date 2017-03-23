@@ -68,6 +68,9 @@ button.item:not([detail-none]) .item-inner, a.item:not([detail-none]) .item-inne
   }
 }
 
+.back-button-icon {
+  color: color($colors, secondary);
+}
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
