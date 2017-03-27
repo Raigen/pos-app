@@ -1,17 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.epages.esitekic" version="0.7.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>eSiteKic</name>
-    <description>Point-of-Sale Application for ePages Merchants to manage their shop products.</description>
-    <author email="apps@epages.com" href="https://epages.com/">ePages GmbH</author>
+<widget id="com.epages.esitekic.now" version="0.7.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>eSiteKic for Now</name>
+    <description>Point-of-Sale Application for ePages Now Merchants to manage their shop products.</description>
+    <author email="epagesdevs@epages.com" href="https://.developer.epages.com/">ePages GmbH</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
