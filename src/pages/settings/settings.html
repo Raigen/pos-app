@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="dark">
-    <button ion-button menuToggle>
+    <button color="secondary" ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Settings</ion-title>
@@ -11,13 +11,13 @@
 
 <ion-content padding class="settings">
   <form [formGroup]="settingsForm" (ngSubmit)="setSettings($event)" novalidate>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label floating primary>Shop URL</ion-label>
       <ion-input formControlName="shopUrl" type="url" required>
       </ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item no-padding>
       <ion-label floating primary>Token</ion-label>
       <ion-input formControlName="token" type="text" required>
       </ion-input>
@@ -27,7 +27,7 @@
       Scan code
     </button>
 
-    <ion-row responsive-sm>
+    <ion-row padding-top responsive-sm>
       <ion-col>
         <button type="submit" primary block ion-button>Save</button>
       </ion-col>

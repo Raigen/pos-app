@@ -24,8 +24,8 @@
         <h3>Price: {{product.priceInfo?.price?.formatted}}</h3>
       </ion-item>
       <ion-item-options icon-left>
-          <button ion-button icon-only large padding-top padding-bottom (click)="addPicture($event, product)"><ion-icon name="camera"></ion-icon></button>
-          <button ion-button icon-only large padding-top padding-bottom color="secondary" (click)="itemTapped($event, product, 'stock')"><ion-icon ios="logo-buffer" md="logo-buffer"></ion-icon></button>
+          <button color="secondary" ion-button icon-only large padding-top padding-bottom (click)="addPicture($event, product)"><ion-icon name="camera"></ion-icon></button>
+          <button color="secondary" ion-button icon-only large padding-top padding-bottom color="secondary" (click)="itemTapped($event, product, 'stock')"><ion-icon ios="logo-buffer" md="logo-buffer"></ion-icon></button>
       </ion-item-options>
   </ion-item-sliding>
   </ion-list>

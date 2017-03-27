@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="tutorial">
       <ion-buttons end *ngIf="showSkip">
-          <button ion-button (click)="startApp()" light>Skip</button>
+          <button ion-button (click)="startApp()" color="light">Skip</button>
       </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -14,8 +14,6 @@
             <p [innerHTML]="slide.description"></p>
         </ion-slide>
         <ion-slide>
-            <ion-toolbar>
-            </ion-toolbar>
             <img src="assets/img/ready.png" class="slide-image-last"/>
             <h2 class="slide-title">Ready to Play?</h2>
             <button color="light" ion-button icon-right large clear (click)="startApp()">

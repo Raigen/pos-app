@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="dark">
-    <button ion-button menuToggle>
+    <button color="secondary" ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{product.name}}</ion-title>
@@ -8,40 +8,34 @@
 </ion-header>
 
 <ion-content class="product-detail">
-<!--  <h1>{{product.name}}</h1>
-  <h3>{{product.priceInfo?.price?.formatted}}</h3>-->
-      <ion-segment [(ngModel)]="details">
-        <ion-segment-button value="images">
-          Images
-        </ion-segment-button>
-        <ion-segment-button value="stock">
-          Stock level
-        </ion-segment-button>
-      </ion-segment>
-    <div [ngSwitch]="details">
-
-      <ion-list *ngSwitchCase="'images'" padding>
-
-        <ion-slides class="slides-wrapper" pager *ngIf="images.length > 0">
-          <ion-slide *ngFor="let image of images">
-            <ion-badge color="active" active *ngIf="image.active">active</ion-badge>
-            <img src="{{image.url}}" />
-            <button ion-button icon-only round color="secondary" (click)="removeImage(image)" class="delete-button"><ion-icon name="trash"></ion-icon></button>
-          </ion-slide>
-        </ion-slides>
-        <div padding text-center class="product-detail-button-wrapper">
-          <button ion-button icon-left class="product-detail-button" (click)="addPicture()" *ngIf="uploadProgress === 0"><ion-icon name="camera"></ion-icon>Make a picture</button>
-        </div>
-
-      </ion-list>
-
-      <ion-list *ngSwitchCase="'stock'" padding>
-        <div class="stock-level"> {{product.stocklevel}}</div>
-        <div padding text-center class="update-button">
-          <button ion-button medium id="down" (click)="updateStocklevel($event, -1)">-1</button>
-          <button ion-button medium id="up" (click)="updateStocklevel($event, +1)">+1</button>
-        </div>
-
-      </ion-list>
-    </div>
+  <ion-segment padding [(ngModel)]="details">
+    <ion-segment-button value="images">
+      Images
+    </ion-segment-button>
+    <ion-segment-button value="stock">
+      Stock level
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="details">
+    <ion-list *ngSwitchCase="'images'" padding>
+      <ion-slides class="slides-wrapper" pager *ngIf="images.length > 0">
+        <ion-slide *ngFor="let image of images">
+          <ion-badge color="active" active *ngIf="image.active">active</ion-badge>
+          <img src="{{image.url}}" />
+          <button ion-button icon-only round color="secondary" (click)="removeImage(image)" class="delete-button"><ion-icon name="trash"></ion-icon></button>
+        </ion-slide>
+      </ion-slides>
+      <div padding text-center class="product-detail-button-wrapper">
+        <button ion-button icon-left class="product-detail-button" (click)="addPicture()" *ngIf="uploadProgress === 0"><ion-icon name="camera"></ion-icon>Make a picture</button>
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'stock'" padding>
+      <div class="stock-level" *ngIf="product.stocklevel !== null"> {{product.stocklevel}}</div>
+      <div class="stock-level" *ngIf="product.stocklevel === null"> Not Available</div>
+      <div padding text-center class="update-button" *ngIf="product.stocklevel !== null">
+        <button ion-button medium id="down" (click)="updateStocklevel($event, -1)">-1</button>
+        <button ion-button medium id="up" (click)="updateStocklevel($event, +1)">+1</button>
+      </div>
+    </ion-list>
+  </div>
 </ion-content>

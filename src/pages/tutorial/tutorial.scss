@@ -1,8 +1,4 @@
 page-tutorial {
-  .toolbar-background {
-    background: #DB3A4B;
-    border-color: transparent;
-  }
 
   .bar-button {
     padding: 0 15px;
@@ -21,13 +17,13 @@ page-tutorial {
 
   .slide-title {
     color: #fff;
-    margin-top: 3.8rem;
+    margin-top: 1.8rem;
   }
 
   .slide-image {
     max-height: 50%;
     max-width: 60%;
-    margin: 80px 0 50px 0;
+    margin: 20px 0 20px 0;
   }
 
   .slide-image-last {
@@ -42,8 +38,18 @@ page-tutorial {
 
   p {
     padding: 0 40px;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 1.5rem;
+    line-height: 2rem;
     color: #fff;
   }
+}
+
+.header {
+  &::after {
+    background-image: none;
+  }
+}
+
+.header-ios .toolbar-background-ios {
+  border-color: transparent;
 }

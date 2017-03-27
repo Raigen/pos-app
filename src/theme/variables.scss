@@ -28,8 +28,13 @@ $colors: (
   secondary:  #2bb799,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #313131,
-  active:     #e04623
+  dark: (
+    base: #313131,
+    contrast: #949494
+  ),
+  active:     #e04623,
+  title:      #949494,
+  tutorial:   #DB3A4B
 );
 
 
